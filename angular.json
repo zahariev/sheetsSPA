@@ -119,6 +119,12 @@
           }
         }
       }
-    }},
-  "defaultProject": "sheets-SPA"
+    }
+  },
+  "defaultProject": "sheets-SPA",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
