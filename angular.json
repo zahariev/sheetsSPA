@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "sheets-SPA": {
+    "sheetsSPA": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,14 +13,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/sheets-SPA",
+            "outputPath": "dist/sheetsSPA",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.css"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -57,18 +57,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "sheets-SPA:build"
+            "browserTarget": "sheetsSPA:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "sheets-SPA:build:production"
+              "browserTarget": "sheetsSPA:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sheets-SPA:build"
+            "browserTarget": "sheetsSPA:build"
           }
         },
         "test": {
@@ -98,18 +98,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "sheets-SPA:serve"
+            "devServerTarget": "sheetsSPA:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "sheets-SPA:serve:production"
+              "devServerTarget": "sheetsSPA:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "sheets-SPA",
+  "defaultProject": "sheetsSPA",
   "schematics": {
     "@schematics/angular:component": {
       "styleext": "scss"
