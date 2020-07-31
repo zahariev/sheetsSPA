@@ -25,23 +25,42 @@
 
   <div class="navbar-nav-scroll">
     <ul class="navbar-nav bd-navbar-nav flex-row">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Timesheets</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/home']">Timesheets</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Clients</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/clients']">Clients</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Projects</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Time-Off</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/projects']">Projects</a>
       </li>
     </ul>
   </div>
 
   <ul class="navbar-nav ml-md-auto"></ul>
-  <form
+
+  <div *ngIf="loggedIn()" class="dropdown">
+    <button
+      class="btn btn-secondary dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      Welcome User
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Profile</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" (click)="logout()"
+        ><i class="fa fa-sign-out"></i>Logout</a
+      >
+    </div>
+  </div>
+
+  <!-- <form
+    *ngIf="!loggedIn()"
     #loginForm="ngForm"
     class="form-inline my-2 my-lg-0"
     (ngSubmit)="login()"
@@ -67,5 +86,5 @@
     <button [disabled]="!loginForm.valid" class="btn btn-success" type="submit">
       login
     </button>
-  </form>
+  </form> -->
 </header>
