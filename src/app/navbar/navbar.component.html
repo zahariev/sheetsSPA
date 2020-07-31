@@ -64,6 +64,8 @@
       required
       [(ngModel)]="model.password"
     />
-    <button class="btn btn-success" type="submit">login</button>
+    <button [disabled]="!loginForm.valid" class="btn btn-success" type="submit">
+      login
+    </button>
   </form>
 </header>
