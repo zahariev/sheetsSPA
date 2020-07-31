@@ -1,3 +1,6 @@
+import { HttpService } from './_services/http.service';
+import { AuthService } from './_services/auth.service';
+// import { HttpService } from './_services/http.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -9,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [AppComponent, NavbarComponent],
   imports: [BrowserModule, NgbModule, FormsModule],
-  providers: [],
+  providers: [AuthService, HttpService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
