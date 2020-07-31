@@ -1,3 +1,4 @@
+import { Routes } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,11 +9,17 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
   model: any = {};
 
-  constructor(pr) {}
+  constructor() {}
 
   ngOnInit() {}
 
-  login() {
-    console.log(this.model);
+  loggedIn() {
+    const token = localStorage.getItem('token');
+    return !!token;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    console.log('logged out');
   }
 }
