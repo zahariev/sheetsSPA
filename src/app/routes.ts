@@ -1,3 +1,4 @@
+import { AuthGuard } from './_guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ClientsComponent } from './components/clients/clients.component';
@@ -6,24 +7,34 @@ import { ProjectsComponent } from './components/projects/projects.component';
 
 export const appRoutes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeComponent,
-  },
-  {
-    path: 'clients',
-    component: ClientsComponent,
-  },
-  {
-    path: 'projects',
-    component: ProjectsComponent,
   },
   {
     path: 'login',
     component: RegisterComponent,
   },
   {
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'clients',
+        component: ClientsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'projects',
+        component: ProjectsComponent,
+        canActivate: [AuthGuard],
+      },
+    ],
+  },
+
+  {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: '',
     pathMatch: 'full',
   },
 ];
