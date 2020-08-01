@@ -11,7 +11,12 @@
             </h1>
           </div>
 
-          <form id="appsForm" class="modal-body" enctype="multipart/form-data">
+          <form
+            id="appsForm"
+            class="modal-body"
+            #loginForm="ngForm"
+            (ngSubmit)="login()"
+          >
             <div class="form-group pass_show">
               <!-- <small>Nom d'utilisateur</small> -->
               <label class="h6">Username</label>
@@ -19,8 +24,9 @@
               <input
                 type="text"
                 class="form-control form-control-user"
-                name="pass"
+                name="username"
                 id="pass"
+                [(ngModel)]="model.username"
                 aria-describedby="emailHelp"
                 placeholder="***"
               />
@@ -34,15 +40,20 @@
               <input
                 type="password"
                 class="form-control form-control-user"
-                name="pass_confirm"
+                name="password"
+                [(ngModel)]="model.password"
                 id="pass_confirm"
                 placeholder="***"
               />
 
               <label class="error"> </label>
             </div>
-            <button id="submit" class="btn btn-primary btn-user btn-block">
-              Submut
+            <button
+              [disabled]="!loginForm.valid"
+              class="btn btn-success"
+              type="submit"
+            >
+              Login / Register
             </button>
             <div
               class="text-center text-danger animated--grow-in mt-1"
