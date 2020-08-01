@@ -39,18 +39,11 @@
 
   <ul class="navbar-nav ml-md-auto"></ul>
 
-  <div *ngIf="loggedIn()" class="dropdown">
-    <button
-      class="btn btn-secondary dropdown-toggle"
-      type="button"
-      id="dropdownMenuButton"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >
+  <div *ngIf="loggedIn()" class="dropdown" ngbDropdown>
+    <a class="btn btn-secondary dropdown-toggle" ngbDropdownToggle>
       Welcome User
-    </button>
-    <div class="dropdown-menu">
+    </a>
+    <div class="dropdown-menu" ngbDropdownMenu>
       <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Profile</a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" (click)="logout()"
