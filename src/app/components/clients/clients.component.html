@@ -1,3 +1,32 @@
-<p>
-  clients works!
-</p>
+<div class="container body-content">
+  <h2>Clients</h2>
+
+  <p>
+    <a href="/Clients/Create">Create New</a>
+  </p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of clients">
+        <td>
+          {{ client.name }}
+        </td>
+        <td>
+          <a href="/Clients/Edit/5">Edit</a> |
+          <a href="/Clients/Details/5">Details</a> |
+          <a href="/Clients/Delete/5">Delete</a>
+        </td>
+      </tr>
+      <tr></tr>
+    </tbody>
+  </table>
+
+  <hr />
+</div>
