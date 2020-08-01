@@ -8,17 +8,19 @@ import { ProjectsComponent } from './components/projects/projects.component';
 export const appRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-  },
-  {
-    path: 'login',
     component: RegisterComponent,
   },
+
   {
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
+      {
+        path: 'home',
+        component: HomeComponent,
+        canActivate: [AuthGuard],
+      },
       {
         path: 'clients',
         component: ClientsComponent,
