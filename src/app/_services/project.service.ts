@@ -26,8 +26,8 @@ export class ProjectService {
     return this.http.get<Project[]>(this.baseURL + 'projects', httpOptions);
   }
 
-  updateProject(id: number, project: Project) {
-    return this.http.put(this.baseURL + 'projects/' + id, project, httpOptions);
+  updateProject(project: Project) {
+    return this.http.put(this.baseURL + 'projects', project, httpOptions);
   }
 
   deleteProject(id: number) {
