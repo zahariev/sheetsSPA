@@ -2,7 +2,7 @@
   <h2>Clients</h2>
 
   <p>
-    <a href="/Clients/Create">Create New</a>
+    <a href="javascript:void(0)" (click)="newClient()">Create New</a>
   </p>
   <table class="table">
     <thead>
@@ -19,9 +19,16 @@
           {{ client.name }}
         </td>
         <td>
-          <a href="/Clients/Edit/5">Edit</a> |
-          <a href="/Clients/Details/5">Details</a> |
-          <a href="/Clients/Delete/5">Delete</a>
+          <button type="button" class="btn btn-sm mr-1">
+            Edit
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            (click)="deleteClient(client.id)"
+          >
+            <i class="fa fa-trash-o"></i>
+          </button>
         </td>
       </tr>
       <tr></tr>
