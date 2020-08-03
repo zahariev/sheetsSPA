@@ -56,10 +56,10 @@ export class HomeComponent implements OnInit {
   }
 
   getClientName(clientId) {
-    return this.clients.filter((id) => (id = clientId))[0]?.name;
+    return this.clients.filter((item) => item.id == clientId)[0]?.name;
   }
 
   getProjectName(projectId) {
-    return this.projects.filter((id) => (id = projectId))[0]?.name;
+    return this.projects.filter((item) => item.id == projectId)[0]?.name;
   }
 }
