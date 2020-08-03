@@ -1,3 +1,235 @@
-<p>
-  home works!
-</p>
+<div class="container body-content">
+  <div>
+    <h3>Create a new timesheet</h3>
+    <form action="/Home/Create" method="post" novalidate="novalidate">
+      <div class="row">
+        <div
+          class="text-danger validation-summary-valid"
+          data-valmsg-summary="true"
+        >
+          <ul>
+            <li style="display: none;"></li>
+          </ul>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="control-label" for="ClientId">Client</label>
+            <select
+              class="form-control"
+              data-val="true"
+              data-val-required="The Client field is required."
+              id="ClientId"
+              name="ClientId"
+            >
+              <option *ngFor="let item of clients" value="item.id">{{
+                item.name
+              }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label
+              class="control-label"
+              for="TimesheetEntry_ParentPhase_ParentProject"
+              >Parent Project</label
+            >
+            <select
+              class="form-control"
+              data-val="true"
+              data-val-required="The Parent Project field is required."
+              id="TimesheetEntry_ParentPhase_ParentProjectId"
+              name="TimesheetEntry.ParentPhase.ParentProjectId"
+            >
+              <option *ngFor="let item of projects" value="item.id">{{
+                item.name
+              }}</option>
+            </select>
+          </div>
+        </div>
+        <!-- <div class="col-md-4"></div> -->
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="control-label" for="TimesheetEntry_StartDateTime"
+              >Start Time</label
+            >
+            <input
+              type="datetime"
+              class="form-control"
+              autocomplete="off"
+              data-val="true"
+              data-val-required="The Start Time field is required."
+              id="TimesheetEntry_StartDateTime"
+              name="TimesheetEntry.StartDateTime"
+              value=""
+            />
+            <span
+              class="text-danger field-validation-valid"
+              data-valmsg-for="TimesheetEntry.StartDateTime"
+              data-valmsg-replace="true"
+            ></span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="control-label" for="TimesheetEntry_EndDateTime"
+              >End Time</label
+            >
+            <input
+              type="datetime"
+              class="form-control"
+              autocomplete="off"
+              data-val="true"
+              data-val-required="The End Time field is required."
+              id="TimesheetEntry_EndDateTime"
+              name="TimesheetEntry.EndDateTime"
+              value=""
+            />
+            <span
+              class="text-danger field-validation-valid"
+              data-valmsg-for="TimesheetEntry.EndDateTime"
+              data-valmsg-replace="true"
+            ></span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group">
+            <label class="control-label" for="TimesheetEntry_Description"
+              >Description</label
+            >
+            <textarea
+              class="form-control"
+              rows="3"
+              autocomplete="off"
+              data-val="true"
+              data-val-required="The Description field is required."
+              id="TimesheetEntry_Description"
+              name="TimesheetEntry.Description"
+            ></textarea>
+            <span
+              class="text-danger field-validation-valid"
+              data-valmsg-for="TimesheetEntry.Description"
+              data-valmsg-replace="true"
+            ></span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="control-label"> </label>
+            <input
+              type="submit"
+              value="Create Timesheet"
+              class="form-control btn btn-primary"
+              style="height: 70px;"
+            />
+          </div>
+        </div>
+      </div>
+
+      <p class="text-danger"></p>
+      <input
+        name="__RequestVerificationToken"
+        type="hidden"
+        value="CfDJ8P0M506I3kBFsAY73VoS3ujf3lHIaifg8Ev_nYDzX5W5iOn9K2gqRF6d_3eL7kc48SuBBbNEczAnHIksllbA5qWQlryLKEr-TJpWJ2pzmrEl94KcVetM_ZG0bHXyLhkuC0kVLvWiLG8vKyNcyNYeNJIvPHOiDCd5OZiiLtcSXj-Kg9q7Z4gVxWsBAzn5fdjcgw"
+      />
+    </form>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            Client / Project / Phase
+          </th>
+          <th>
+            Start Time
+          </th>
+          <th>
+            End Time
+          </th>
+          <th>
+            Total Hours
+          </th>
+          <th>
+            Description
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            AOSSIA / Smoke Web / July 2020
+          </td>
+          <td>
+            29.07.2020 09.00
+          </td>
+          <td>
+            29.07.2020 17.00
+          </td>
+          <td>
+            08:00
+          </td>
+          <td>
+            link forgot password and link to api, translate labels to french
+          </td>
+        </tr>
+        <tr>
+          <td>
+            AOSSIA / Smoke Web / July 2020
+          </td>
+          <td>
+            28.07.2020 09.00
+          </td>
+          <td>
+            28.07.2020 17.00
+          </td>
+          <td>
+            08:00
+          </td>
+          <td>
+            reset flow sheet to Vesko, tiim login credetial order fix
+          </td>
+        </tr>
+        <tr>
+          <td>
+            AOSSIA / Smoke Web / July 2020
+          </td>
+          <td>
+            27.07.2020 08.30
+          </td>
+          <td>
+            27.07.2020 16.30
+          </td>
+          <td>
+            08:00
+          </td>
+          <td>
+            reset form text, workflow, verification
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            AOSSIA / Smoke / May 2020
+          </td>
+          <td>
+            09.05.2020 08.00
+          </td>
+          <td>
+            09.05.2020 13.30
+          </td>
+          <td>
+            05:30
+          </td>
+          <td>
+            moving files from new to admin.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
