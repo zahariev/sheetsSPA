@@ -160,73 +160,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr *ngFor="let item of timesheets">
+          <td>{{ item.clientId }} / {{ item.projectId }}</td>
           <td>
-            AOSSIA / Smoke Web / July 2020
+            {{ item.startTime }}
           </td>
           <td>
-            29.07.2020 09.00
-          </td>
-          <td>
-            29.07.2020 17.00
-          </td>
-          <td>
-            08:00
-          </td>
-          <td>
-            link forgot password and link to api, translate labels to french
-          </td>
-        </tr>
-        <tr>
-          <td>
-            AOSSIA / Smoke Web / July 2020
-          </td>
-          <td>
-            28.07.2020 09.00
-          </td>
-          <td>
-            28.07.2020 17.00
+            {{ item.endTime }}
           </td>
           <td>
             08:00
           </td>
           <td>
-            reset flow sheet to Vesko, tiim login credetial order fix
-          </td>
-        </tr>
-        <tr>
-          <td>
-            AOSSIA / Smoke Web / July 2020
-          </td>
-          <td>
-            27.07.2020 08.30
-          </td>
-          <td>
-            27.07.2020 16.30
-          </td>
-          <td>
-            08:00
-          </td>
-          <td>
-            reset form text, workflow, verification
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            AOSSIA / Smoke / May 2020
-          </td>
-          <td>
-            09.05.2020 08.00
-          </td>
-          <td>
-            09.05.2020 13.30
-          </td>
-          <td>
-            05:30
-          </td>
-          <td>
-            moving files from new to admin.
+            {{ item.description }}
           </td>
         </tr>
       </tbody>
