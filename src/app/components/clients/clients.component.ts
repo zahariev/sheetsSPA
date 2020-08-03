@@ -10,6 +10,9 @@ import { CommonModule } from '@angular/common';
 })
 export class ClientsComponent implements OnInit {
   clients: Client[] = [];
+  editMode: boolean = false;
+  model: Client = new Client();
+
   constructor(private clientService: ClientService) {}
 
   async ngOnInit() {
@@ -20,6 +23,18 @@ export class ClientsComponent implements OnInit {
     let clients = await this.clientService.getClients().toPromise();
 
     return clients;
+  }
+
+  onSubmit() {
+    this.clientService.updateClient(this.model).subscribe();
+    this.editMode = false;
+    this.model = new Client();
+  }
+
+  editClient(client) {
+    console.log(client);
+    this.model = client;
+    this.editMode = true;
   }
 
   deleteClient(id: number) {
