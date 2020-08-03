@@ -2,6 +2,8 @@ import { ProjectService } from './../../_services/project.service';
 import { Component, OnInit } from '@angular/core';
 import { Project } from '../../models/project';
 import { CommonModule } from '@angular/common';
+import { Client } from 'src/app/models/client';
+import { ClientService } from 'src/app/_services/client.service';
 
 @Component({
   selector: 'app-projects',
@@ -10,16 +12,57 @@ import { CommonModule } from '@angular/common';
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[] = [];
-  constructor(private projectService: ProjectService) {}
+  clients: Client[] = [];
+  edit = false;
+  model: Project = new Project();
+
+  constructor(
+    private projectService: ProjectService,
+    private clientService: ClientService
+  ) {}
 
   async ngOnInit() {
     this.projects = await this.getProjects();
+    this.clients = await this.getClients();
+    this.model.name = '';
+    this.model.clientId = parseInt(this.clients[0].id.toString());
+  }
+
+  async getClients() {
+    let clients = await this.clientService.getClients().toPromise();
+
+    return clients;
   }
 
   async getProjects() {
     let data = await this.projectService.getProjects().toPromise();
 
     return data;
+  }
+
+  onSubmit() {
+    console.log('submit');
+    if (this.model.clientId == null) this.model.clientId = 0;
+
+    this.model.clientId == parseInt(this.model.clientId.toString());
+
+    this.projectService.updateProject(this.model).subscribe(
+      () => {},
+      (err) => {}
+    );
+
+    this.edit = false;
+    this.model = new Project();
+  }
+
+  getClientName(clientId) {
+    return this.clients.filter((item) => item.id == clientId)[0]?.name || '';
+  }
+
+  editProject(project) {
+    this.model = project;
+
+    this.edit = true;
   }
 
   deleteProject(id: number) {
