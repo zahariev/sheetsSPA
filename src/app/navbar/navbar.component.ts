@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
   model: any = {};
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
+    this.router.navigate(['/login']);
     localStorage.removeItem('token');
     console.log('logged out');
   }
