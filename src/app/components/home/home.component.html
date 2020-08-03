@@ -21,8 +21,9 @@
               data-val-required="The Client field is required."
               id="ClientId"
               name="ClientId"
+              (change)="onSelect($event.target.value)"
             >
-              <option *ngFor="let item of clients" value="item.id">{{
+              <option *ngFor="let item of clients" value="{{ item.id }}">{{
                 item.name
               }}</option>
             </select>
@@ -42,7 +43,7 @@
               id="TimesheetEntry_ParentPhase_ParentProjectId"
               name="TimesheetEntry.ParentPhase.ParentProjectId"
             >
-              <option *ngFor="let item of projects" value="item.id">{{
+              <option *ngFor="let item of activeProjects" value="item.id">{{
                 item.name
               }}</option>
             </select>
@@ -161,7 +162,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let item of timesheets">
-          <td>{{ item.clientId }} / {{ item.projectId }}</td>
+          <td>
+            {{ getClientName(item.clientId) }} /
+            {{ getProjectName(item.projectId) }}
+          </td>
           <td>
             {{ item.startTime }}
           </td>

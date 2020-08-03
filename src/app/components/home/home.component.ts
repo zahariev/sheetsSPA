@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   clients: Client[] = [];
   projects: Project[] = [];
   timesheets: TimeSheet[] = [];
+  activeProjects: Project[];
 
   constructor(
     private clientService: ClientService,
@@ -26,6 +27,14 @@ export class HomeComponent implements OnInit {
     this.clients = await this.getClients();
     this.projects = await this.getProjects();
     this.timesheets = await this.getTimeSheets();
+    this.onSelect(this.clients[0].id);
+  }
+
+  onSelect(clientId) {
+    this.activeProjects = this.projects.filter(
+      (item) => item.clientId == clientId
+    );
+    console.log(this.activeProjects);
   }
 
   async getClients() {
@@ -44,5 +53,13 @@ export class HomeComponent implements OnInit {
     let data = await this.projectService.getProjects().toPromise();
 
     return data;
+  }
+
+  getClientName(clientId) {
+    return this.clients.filter((id) => (id = clientId))[0]?.name;
+  }
+
+  getProjectName(projectId) {
+    return this.projects.filter((id) => (id = projectId))[0]?.name;
   }
 }
