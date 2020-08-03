@@ -1,3 +1,4 @@
+import { ProjectsComponent } from './components/projects/projects.component';
 import { HomeComponent } from './components/home/home.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { appRoutes } from './routes';
@@ -19,6 +20,7 @@ import { RouterModule } from '@angular/router';
     AppComponent,
     NavbarComponent,
     RegisterComponent,
+    ProjectsComponent,
     ClientsComponent,
     HomeComponent,
   ],
