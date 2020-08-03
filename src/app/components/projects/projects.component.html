@@ -1,3 +1,39 @@
-<p>
-  projects works!
-</p>
+<div class="container body-content">
+  <h2>Projects</h2>
+
+  <p>
+    <a href="javascript:void(0)" (click)="newProject()">Create New</a>
+  </p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Name
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects">
+        <td>
+          {{ project.name }}
+        </td>
+        <td>
+          <button type="button" class="btn btn-sm mr-1">
+            Edit
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            (click)="deleteProject(project.id)"
+          >
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </td>
+      </tr>
+      <tr></tr>
+    </tbody>
+  </table>
+
+  <hr />
+</div>
