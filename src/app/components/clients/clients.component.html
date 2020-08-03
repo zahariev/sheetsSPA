@@ -1,4 +1,4 @@
-<div class="container body-content">
+<div *ngIf="!editMode" class="container body-content">
   <h2>Clients</h2>
 
   <p>
@@ -19,7 +19,11 @@
           {{ client.name }}
         </td>
         <td>
-          <button type="button" class="btn btn-success btn-sm mr-2">
+          <button
+            type="button"
+            class="btn btn-success btn-sm mr-2"
+            (click)="editClient(client)"
+          >
             <i class="fa fa-pencil-square-o"></i>
           </button>
           <button
@@ -36,4 +40,52 @@
   </table>
 
   <hr />
+</div>
+
+<div *ngIf="editMode" class="container body-content">
+  <h2>Edit</h2>
+
+  <h4>Client</h4>
+  <hr />
+  <div class="row">
+    <div class="col-md-4">
+      <form novalidate="novalidate" (ngSubmit)="onSubmit()" #newForm="ngForm">
+        <div class="form-group">
+          <label class="control-label" for="Name">Name</label>
+          <input
+            class="form-control"
+            type="text"
+            data-val="true"
+            data-val-required="The Name field is required."
+            id="Name"
+            [(ngModel)]="model.name"
+            name="name"
+            value=""
+          />
+          <span
+            class="text-danger field-validation-valid"
+            data-valmsg-for="Name"
+            data-valmsg-replace="true"
+          ></span>
+        </div>
+
+        <div class="form-group">
+          <input
+            type="submit"
+            value="Submit"
+            class="btn btn-outline-secondary"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div>
+    <a href="javascript:void(0)" (click)="onSubmit()">Back to List</a>
+  </div>
+
+  <hr />
+  <footer>
+    <!-- <div>Version 0.0.3.10 © 2018 - OneBit Software</div> -->
+  </footer>
 </div>

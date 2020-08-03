@@ -1,4 +1,4 @@
-<div class="container body-content">
+<div *ngIf="!edit" class="container body-content">
   <h2>Projects</h2>
 
   <p>
@@ -10,7 +10,7 @@
         <th>
           Name
         </th>
-        <th></th>
+        <th>Client</th>
       </tr>
     </thead>
     <tbody>
@@ -18,8 +18,16 @@
         <td>
           {{ project.name }}
         </td>
+
         <td>
-          <button type="button" class="btn btn-sm mr-1">
+          {{ getClientName(project.clientId) }}
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-success btn-sm mr-2"
+            (click)="editProject(project)"
+          >
             <i class="fa fa-pencil-square-o"></i>
           </button>
           <button
@@ -36,4 +44,181 @@
   </table>
 
   <hr />
+</div>
+
+<div *ngIf="edit" class="container body-content">
+  <h2>Edit</h2>
+
+  <h4>Project</h4>
+  <hr />
+  <div class="row">
+    <div class="col-md-4">
+      <form novalidate="novalidate" (ngSubmit)="onSubmit()" #newForm="ngForm">
+        <div class="form-group">
+          <label class="control-label" for="Name">Name</label>
+          <input
+            class="form-control"
+            type="text"
+            data-val="true"
+            data-val-required="The Name field is required."
+            id="Name"
+            [(ngModel)]="model.name"
+            name="name"
+            value="{{ model.name }}"
+          />
+          <span
+            class="text-danger field-validation-valid"
+            data-valmsg-for="Name"
+            data-valmsg-replace="true"
+          ></span>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="ParentClientId"
+            >Parent Client</label
+          >
+          <select
+            class="form-control"
+            [(ngModel)]="model.clientId"
+            name="clientId"
+            data-val="true"
+            data-val-required="The ParentClientId field is required."
+            id="ParentClientId"
+          >
+            <option *ngFor="let item of clients" value="{{ item.id }}">{{
+              item.name
+            }}</option>
+          </select>
+        </div>
+
+        <!-- <div class="form-group">
+          <label class="control-label" for="StartDateTime">Start Time</label>
+          <input
+            type="datetime"
+            class="form-control"
+            autocomplete="off"
+            data-val="true"
+            data-val-required="The Start Time field is required."
+            id="StartDateTime"
+            name="StartDateTime"
+            value=""
+          />
+          <span
+            class="text-danger field-validation-valid"
+            data-valmsg-for="StartDateTime"
+            data-valmsg-replace="true"
+          ></span>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="EndDateTime">End Time</label>
+          <input
+            type="datetime"
+            class="form-control"
+            autocomplete="off"
+            data-val="true"
+            data-val-required="The End Time field is required."
+            id="EndDateTime"
+            name="EndDateTime"
+            value=""
+          />
+          <span
+            class="text-danger field-validation-valid"
+            data-valmsg-for="EndDateTime"
+            data-valmsg-replace="true"
+          ></span>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="BudgetDays">Days Budget</label>
+          <input
+            class="form-control"
+            autocomplete="off"
+            type="text"
+            data-val="true"
+            data-val-number="The field Days Budget must be a number."
+            data-val-range="The field Days Budget must be between 1 and 1000."
+            data-val-range-max="1000"
+            data-val-range-min="1"
+            data-val-required="The Days Budget field is required."
+            id="BudgetDays"
+            name="BudgetDays"
+            value=""
+          />
+          <span
+            class="text-danger field-validation-valid"
+            data-valmsg-for="BudgetDays"
+            data-valmsg-replace="true"
+          ></span>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="InternalBudgetDays"
+            >Internal Days Budget</label
+          >
+          <input
+            class="form-control"
+            autocomplete="off"
+            type="text"
+            data-val="true"
+            data-val-number="The field Internal Days Budget must be a number."
+            data-val-range="The field Internal Days Budget must be between 1 and 1000."
+            data-val-range-max="1000"
+            data-val-range-min="1"
+            data-val-required="The Internal Days Budget field is required."
+            id="InternalBudgetDays"
+            name="InternalBudgetDays"
+            value=""
+          />
+          <span
+            class="text-danger field-validation-valid"
+            data-valmsg-for="InternalBudgetDays"
+            data-valmsg-replace="true"
+          ></span>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="HourlyRate">Hourly Rate</label>
+          <input
+            class="form-control"
+            autocomplete="off"
+            type="text"
+            data-val="true"
+            data-val-number="The field Hourly Rate must be a number."
+            data-val-range="The field Hourly Rate must be between 1 and 1000."
+            data-val-range-max="1000"
+            data-val-range-min="1"
+            data-val-required="The Hourly Rate field is required."
+            id="HourlyRate"
+            name="HourlyRate"
+            value=""
+          />
+          <span
+            class="text-danger field-validation-valid"
+            data-valmsg-for="HourlyRate"
+            data-valmsg-replace="true"
+          ></span>
+        </div> -->
+        <div class="form-group">
+          <input
+            type="submit"
+            value="Create"
+            class="btn btn-outline-secondary"
+          />
+
+          <!-- <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="newProject(); heroForm.reset()"
+          >
+            New Hero
+          </button> -->
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div>
+    <a href="javascript:void(0)" (click)="edit = 0">Back to List</a>
+  </div>
+
+  <hr />
+  <footer>
+    <!-- <div>Version 0.0.3.10 © 2018 - OneBit Software</div> -->
+  </footer>
 </div>
