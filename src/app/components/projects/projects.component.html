@@ -14,10 +14,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let project of projects">
-        <td>
-          {{ project.name }}
-        </td>
+      <tr *ngFor="let project of projects; let i = index">
+        <td>{{ project.name }}</td>
 
         <td>
           {{ getClientName(project.clientId) }}
@@ -26,14 +24,14 @@
           <button
             type="button"
             class="btn btn-success btn-sm mr-2"
-            (click)="editProject(project)"
+            (click)="editProject(i)"
           >
             <i class="fa fa-pencil-square-o"></i>
           </button>
           <button
             type="button"
             class="btn btn-danger btn-sm"
-            (click)="deleteProject(project.id)"
+            (click)="deleteProject(i)"
           >
             <i class="fa fa-trash-o"></i>
           </button>
@@ -90,124 +88,12 @@
           </select>
         </div>
 
-        <!-- <div class="form-group">
-          <label class="control-label" for="StartDateTime">Start Time</label>
-          <input
-            type="datetime"
-            class="form-control"
-            autocomplete="off"
-            data-val="true"
-            data-val-required="The Start Time field is required."
-            id="StartDateTime"
-            name="StartDateTime"
-            value=""
-          />
-          <span
-            class="text-danger field-validation-valid"
-            data-valmsg-for="StartDateTime"
-            data-valmsg-replace="true"
-          ></span>
-        </div>
-        <div class="form-group">
-          <label class="control-label" for="EndDateTime">End Time</label>
-          <input
-            type="datetime"
-            class="form-control"
-            autocomplete="off"
-            data-val="true"
-            data-val-required="The End Time field is required."
-            id="EndDateTime"
-            name="EndDateTime"
-            value=""
-          />
-          <span
-            class="text-danger field-validation-valid"
-            data-valmsg-for="EndDateTime"
-            data-valmsg-replace="true"
-          ></span>
-        </div>
-        <div class="form-group">
-          <label class="control-label" for="BudgetDays">Days Budget</label>
-          <input
-            class="form-control"
-            autocomplete="off"
-            type="text"
-            data-val="true"
-            data-val-number="The field Days Budget must be a number."
-            data-val-range="The field Days Budget must be between 1 and 1000."
-            data-val-range-max="1000"
-            data-val-range-min="1"
-            data-val-required="The Days Budget field is required."
-            id="BudgetDays"
-            name="BudgetDays"
-            value=""
-          />
-          <span
-            class="text-danger field-validation-valid"
-            data-valmsg-for="BudgetDays"
-            data-valmsg-replace="true"
-          ></span>
-        </div>
-        <div class="form-group">
-          <label class="control-label" for="InternalBudgetDays"
-            >Internal Days Budget</label
-          >
-          <input
-            class="form-control"
-            autocomplete="off"
-            type="text"
-            data-val="true"
-            data-val-number="The field Internal Days Budget must be a number."
-            data-val-range="The field Internal Days Budget must be between 1 and 1000."
-            data-val-range-max="1000"
-            data-val-range-min="1"
-            data-val-required="The Internal Days Budget field is required."
-            id="InternalBudgetDays"
-            name="InternalBudgetDays"
-            value=""
-          />
-          <span
-            class="text-danger field-validation-valid"
-            data-valmsg-for="InternalBudgetDays"
-            data-valmsg-replace="true"
-          ></span>
-        </div>
-        <div class="form-group">
-          <label class="control-label" for="HourlyRate">Hourly Rate</label>
-          <input
-            class="form-control"
-            autocomplete="off"
-            type="text"
-            data-val="true"
-            data-val-number="The field Hourly Rate must be a number."
-            data-val-range="The field Hourly Rate must be between 1 and 1000."
-            data-val-range-max="1000"
-            data-val-range-min="1"
-            data-val-required="The Hourly Rate field is required."
-            id="HourlyRate"
-            name="HourlyRate"
-            value=""
-          />
-          <span
-            class="text-danger field-validation-valid"
-            data-valmsg-for="HourlyRate"
-            data-valmsg-replace="true"
-          ></span>
-        </div> -->
         <div class="form-group">
           <input
             type="submit"
             value="UPDATE"
             class="btn btn-outline-secondary"
           />
-
-          <!-- <button
-            type="button"
-            class="btn btn-outline-secondary"
-            (click)="newProject(); heroForm.reset()"
-          >
-            New Hero
-          </button> -->
         </div>
       </form>
     </div>
