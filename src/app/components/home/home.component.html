@@ -1,0 +1,193 @@
+<div *ngIf="editMode" class="container body-content">
+  <div>
+    <h3>{{ activityName }} timesheet</h3>
+    <form (ngSubmit)="onSubmit()" #newForm="ngForm" novalidate="novalidate">
+      <div class="row">
+        <div
+          class="text-danger validation-summary-valid"
+          data-valmsg-summary="true"
+        >
+          <ul>
+            <li style="display: none;"></li>
+          </ul>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="control-label" for="ClientId">Client</label>
+            <select
+              class="form-control"
+              id="ClientId"
+              name="ClientId"
+              [(ngModel)]="model.clientId"
+              (change)="onSelect($event.target.value)"
+            >
+              <option [ngValue]="null">Please select value</option>
+              <option *ngFor="let item of clients" value="{{ item.id }}">{{
+                item.name
+              }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label
+              class="control-label"
+              for="TimesheetEntry_ParentPhase_ParentProject"
+              >Parent Project</label
+            >
+            <select
+              class="form-control"
+              name="ProjectId"
+              [(ngModel)]="model.projectId"
+            >
+              <option [ngValue]="null">Please select value</option>
+              <option
+                *ngFor="let item of activeProjects"
+                value="{{ item.id }}"
+                >{{ item.name }}</option
+              >
+            </select>
+          </div>
+        </div>
+        <!-- <div class="col-md-4"></div> -->
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="control-label">Start Time</label>
+            <input
+              type="datetime"
+              class="form-control"
+              autocomplete="off"
+              data-val="true"
+              data-val-required="The Start Time field is required."
+              id="TimesheetEntry_StartDateTime"
+              name="TimesheetEntry.StartDateTime"
+              [(ngModel)]="model.startTime"
+            />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="control-label" for="TimesheetEntry_EndDateTime"
+              >End Time</label
+            >
+            <input
+              type="datetime"
+              class="form-control"
+              autocomplete="off"
+              data-val="true"
+              data-val-required="The End Time field is required."
+              id="TimesheetEntry_EndDateTime"
+              name="TimesheetEntry.EndDateTime"
+              value=""
+              [(ngModel)]="model.endTime"
+            />
+            <span
+              class="text-danger field-validation-valid"
+              data-valmsg-for="TimesheetEntry.EndDateTime"
+              data-valmsg-replace="true"
+            ></span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group">
+            <label class="control-label" for="TimesheetEntry_Description"
+              >Description</label
+            >
+            <textarea
+              class="form-control"
+              rows="3"
+              autocomplete="off"
+              data-val="true"
+              data-val-required="The Description field is required."
+              id="TimesheetEntry_Description"
+              name="TimesheetEntry.Description"
+              [(ngModel)]="model.description"
+            ></textarea>
+            <span
+              class="text-danger field-validation-valid"
+              data-valmsg-for="TimesheetEntry.Description"
+              data-valmsg-replace="true"
+            ></span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label class="control-label"> </label>
+            <input
+              type="submit"
+              value="{{ activityName }} Timesheet"
+              class="form-control btn btn-primary"
+              style="height: 70px;"
+            />
+          </div>
+        </div>
+      </div>
+    </form>
+    <div>
+      <a href="javascript:void(0)" (click)="onSubmit()">Back to List</a>
+    </div>
+  </div>
+</div>
+<div *ngIf="!editMode">
+  <h3>Timesheets</h3>
+  <p>
+    <a href="javascript:void(0)" (click)="newSheet()">Create New</a>
+  </p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Client / Project
+        </th>
+        <th>
+          Start Time
+        </th>
+        <th>
+          End Time
+        </th>
+        <th>
+          Total Hours
+        </th>
+        <th>
+          Description
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of timesheets">
+        <td>
+          {{ getClientName(item.clientId) }} /
+          {{ getProjectName(item.projectId) }}
+        </td>
+        <td>
+          {{ item.startTime }}
+        </td>
+        <td>
+          {{ item.endTime }}
+        </td>
+        <td>
+          {{ calcTimeDiff(item) }}
+        </td>
+        <td>
+          {{ item.description }}
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-success btn-sm mr-2"
+            (click)="editSheet(item)"
+          >
+            <i class="fa fa-pencil-square-o"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

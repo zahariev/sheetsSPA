@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="col-md-6">
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="p-5">
+          <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">
+              <sub>Login / <b> Register</b></sub
+              ><br /><small> </small>
+            </h1>
+          </div>
+
+          <form
+            id="appsForm"
+            class="modal-body"
+            #loginForm="ngForm"
+            (ngSubmit)="login()"
+          >
+            <div class="form-group pass_show">
+              <!-- <small>Nom d'utilisateur</small> -->
+              <label class="h6">Username</label>
+              <!-- <span class="ptxt">Show</span> -->
+              <input
+                type="text"
+                class="form-control form-control-user"
+                name="username"
+                id="pass"
+                [(ngModel)]="model.username"
+                aria-describedby="emailHelp"
+                placeholder="***"
+              />
+
+              <label class="error"> </label>
+            </div>
+
+            <div class="form-group pass_show">
+              <label class="h6">Password</label>
+              <span class="ptxt" (click)="showPass()">Show</span>
+              <input
+                type="password"
+                class="form-control form-control-user"
+                name="password"
+                [(ngModel)]="model.password"
+                id="pass_confirm"
+                placeholder="***"
+              />
+
+              <label class="error"> </label>
+            </div>
+            <button
+              [disabled]="!loginForm.valid"
+              class="btn btn-success"
+              type="submit"
+            >
+              Login / Register
+            </button>
+            <div
+              class="text-center text-danger animated--grow-in mt-1"
+              id="errorMessage"
+              hidden=""
+            ></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
