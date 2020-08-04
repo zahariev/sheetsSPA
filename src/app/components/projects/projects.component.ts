@@ -31,6 +31,7 @@ export class ProjectsComponent implements OnInit {
   onSubmit() {
     console.log(this.model);
 
+    this.projects.filter((sht) => sht.id == this.model.id)[0] = this.model;
     this.saveLocal();
     this.editMode = false;
     this.model = new Project(this.getId());
@@ -44,7 +45,7 @@ export class ProjectsComponent implements OnInit {
     // console.log(project);
 
     this.model = this.projects[idx];
-    console.log(this.model);
+    // console.log(this.model);
 
     this.editMode = true;
   }
@@ -59,7 +60,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   getId() {
-    return this.projects.length;
+    return this.projects.length + 1;
   }
   cancelEdit() {
     this.editMode = false;

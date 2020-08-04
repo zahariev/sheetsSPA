@@ -1,7 +1,7 @@
 export class TimeSheet {
   id: number = -1;
-  clientId: number = 0;
-  projectId: number = 0;
+  clientId: number = null;
+  projectId: number = null;
   userId: number = 0;
   description: string = '';
   startTime: number = 0;

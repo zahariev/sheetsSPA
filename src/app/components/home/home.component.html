@@ -162,7 +162,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of timesheets">
+      <tr *ngFor="let item of timesheets; let idx = index">
         <td>
           {{ getClientName(item.clientId) }} /
           {{ getProjectName(item.projectId) }}
@@ -186,14 +186,14 @@
           <button
             type="button"
             class="btn btn-success btn-sm mr-2"
-            (click)="editSheet(item)"
+            (click)="editSheet(idx)"
           >
             <i class="fa fa-pencil-square-o"></i>
           </button>
           <button
             type="button"
             class="btn btn-danger btn-sm"
-            (click)="deleteSheet(item.id)"
+            (click)="deleteSheet(idx)"
           >
             <i class="fa fa-trash-o"></i>
           </button>

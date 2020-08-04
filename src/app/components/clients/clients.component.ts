@@ -28,6 +28,7 @@ export class ClientsComponent implements OnInit {
   onSubmit() {
     // this.clientService.updateClient(this.model).subscribe();
 
+    this.clients.filter((sht) => sht.id == this.model.id)[0] = this.model;
     this.saveLocal();
     this.editMode = false;
     this.model = new Client(this.getId());
@@ -48,7 +49,7 @@ export class ClientsComponent implements OnInit {
   }
 
   getId() {
-    return this.clients.length || 0;
+    return this.clients.length + 1;
   }
 
   deleteClient(idx) {
