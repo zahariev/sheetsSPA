@@ -1,6 +1,6 @@
 <div *ngIf="editMode" class="container body-content">
   <div>
-    <h3>Create a new timesheet</h3>
+    <h3>{{ activityName }} timesheet</h3>
     <form (ngSubmit)="onSubmit()" #newForm="ngForm" novalidate="novalidate">
       <div class="row">
         <div
@@ -120,7 +120,7 @@
             <label class="control-label"> </label>
             <input
               type="submit"
-              value="Create Timesheet"
+              value="{{ activityName }} Timesheet"
               class="form-control btn btn-primary"
               style="height: 70px;"
             />

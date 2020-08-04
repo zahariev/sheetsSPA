@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   activeProjects: Project[];
   model: TimeSheet = new TimeSheet();
   editMode = false;
+  activityName = 'Create';
 
   constructor(
     private clientService: ClientService,
@@ -67,6 +68,7 @@ export class HomeComponent implements OnInit {
   }
 
   newSheet() {
+    this.activityName = 'Create';
     this.editMode = true;
   }
 
@@ -94,9 +96,15 @@ export class HomeComponent implements OnInit {
     return item.endTime || 0 - item.startTime || 0;
   }
 
+  toggleActivityName() {
+    if (!this.editMode) return 'Update';
+    return 'Create';
+  }
+
   editSheet(sheet) {
     this.model = sheet;
     this.onSelect(this.model.clientId);
+    this.activityName = 'Update';
     this.editMode = true;
   }
 }
