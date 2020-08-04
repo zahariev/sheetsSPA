@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let client of clients">
+      <tr *ngFor="let client of clients; let i = index">
         <td>
           {{ client.name }}
         </td>
@@ -22,14 +22,14 @@
           <button
             type="button"
             class="btn btn-success btn-sm mr-2"
-            (click)="editClient(client)"
+            (click)="editClient(i)"
           >
             <i class="fa fa-pencil-square-o"></i>
           </button>
           <button
             type="button"
             class="btn btn-danger btn-sm"
-            (click)="deleteClient(client.id)"
+            (click)="deleteClient(i)"
           >
             <i class="fa fa-trash-o"></i>
           </button>

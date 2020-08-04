@@ -11,12 +11,12 @@ import { CommonModule } from '@angular/common';
 export class ClientsComponent implements OnInit {
   clients: Client[] = [];
   editMode: boolean = false;
-  model: Client = new Client();
+  model: Client = new Client(this.getId());
 
   constructor(private clientService: ClientService) {}
 
   async ngOnInit() {
-    this.clients = await this.getClients();
+    this.clients = JSON.parse(localStorage.getItem('clients')) || [];
   }
 
   async getClients() {
@@ -26,50 +26,58 @@ export class ClientsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.clientService.updateClient(this.model).subscribe();
+    // this.clientService.updateClient(this.model).subscribe();
+
+    this.saveLocal();
     this.editMode = false;
-    this.model = new Client();
+    this.model = new Client(this.getId());
   }
 
+  saveLocal() {
+    localStorage.setItem('clients', JSON.stringify(this.clients));
+  }
   cancelEdit() {
     this.editMode = false;
-    this.model = new Client();
+    this.model = new Client(this.getId());
   }
 
-  editClient(client) {
-    console.log(client);
-    this.model = client;
+  editClient(idx) {
+    // console.log(client);
+    this.model = this.clients[idx];
     this.editMode = true;
   }
 
-  deleteClient(id: number) {
-    // this.alertify.confirm('Are you sure you want to delete this photo?', () => {
-    this.clientService.deleteClient(id).subscribe(
-      () => {},
-      (Error) => {},
-      () => {
-        this.clients.splice(
-          this.clients.findIndex((p) => p.id === id),
-          1
-        );
-      }
-    );
-    // remove localy
+  getId() {
+    return this.clients.length || 0;
+  }
 
-    console.log('deletePressed');
+  deleteClient(idx) {
+    // this.alertify.confirm('Are you sure you want to delete this photo?', () => {
+    // this.clientService.deleteClient(id).subscribe(
+    //   () => {},
+    //   (Error) => {},
+    //   () => {
+    this.clients.splice(idx, 1);
+    // }
+    // );
+    // remove localy
+    this.saveLocal();
   }
 
   newClient() {
-    this.clientService.insertClient().subscribe(
-      (client: Client) => {
-        console.log(client);
-        if (client) this.clients.push(client);
-      },
-      (error) => {
-        // message error
-        console.log(error);
-      },
-      () => {}
-    );
+    // this.clientService.insertClient().subscribe(
+    //   (client: Client) => {
+    //     console.log(client);
+    //     if (client)
+    this.clients.push(new Client(this.getId()));
+    //   },
+    //   (error) => {
+    //     // message error
+    //     console.log(error);
+    //   },
+    //   () => {}
+    // );
+
+    this.saveLocal();
   }
 }
