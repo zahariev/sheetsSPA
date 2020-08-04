@@ -19,7 +19,8 @@ export class RegisterComponent implements OnInit {
   register() {
     this.authService.register(this.model).subscribe(
       (user: any) => {
-        console.log('registration');
+        // console.log('registration');
+        setTimeout(() => this.login(), 1000);
         // if (user) {
         //   localStorage.setItem('token', user.token);
         //   this.router.navigate(['/home']);
@@ -27,9 +28,6 @@ export class RegisterComponent implements OnInit {
       },
       (error) => {
         console.log(error.error);
-      },
-      () => {
-        this.login();
       }
     );
   }
@@ -38,14 +36,11 @@ export class RegisterComponent implements OnInit {
     this.authService.login(this.model).subscribe(
       (next) => {
         console.log('logged successfully');
+        if (this.loggedIn) this.router.navigate(['/home']);
       },
       (error) => {
         console.log('logged error.' + error.error);
         this.register();
-        if (this.loggedIn) this.router.navigate(['/home']);
-      },
-      () => {
-        if (this.loggedIn) this.router.navigate(['/home']);
       }
     );
   }
