@@ -60,7 +60,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   getId() {
-    return this.projects.length + 1;
+    return this.projects?.length || 0 + 1;
   }
   cancelEdit() {
     this.editMode = false;

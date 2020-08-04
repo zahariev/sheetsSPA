@@ -13,23 +13,18 @@ export const appRoutes: Routes = [
 
   {
     path: '',
-    runGuardsAndResolvers: 'always',
-    canActivate: [AuthGuard],
     children: [
       {
         path: 'home',
         component: HomeComponent,
-        canActivate: [AuthGuard],
       },
       {
         path: 'clients',
         component: ClientsComponent,
-        canActivate: [AuthGuard],
       },
       {
         path: 'projects',
         component: ProjectsComponent,
-        canActivate: [AuthGuard],
       },
     ],
   },

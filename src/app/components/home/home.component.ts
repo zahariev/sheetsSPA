@@ -29,9 +29,9 @@ export class HomeComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.clients = JSON.parse(localStorage.getItem('clients'));
-    this.projects = JSON.parse(localStorage.getItem('projects'));
-    this.timesheets = JSON.parse(localStorage.getItem('sheets'));
+    this.clients = JSON.parse(localStorage.getItem('clients')) || [];
+    this.projects = JSON.parse(localStorage.getItem('projects')) || [];
+    this.timesheets = JSON.parse(localStorage.getItem('sheets')) || [];
     // this.onSelect(this.clients[0].id);
   }
 
@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
     // console.log(sheet.id);
 
     if (sheet.id == -1) {
-      sheet.id = this.timesheets.length;
+      sheet.id = this.timesheets?.length + 1 || 1;
       // this.timesheetService.insertTimesheet(sheet).subscribe(async () => {
       this.timesheets.push(sheet);
     }

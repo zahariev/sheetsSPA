@@ -33,16 +33,17 @@ export class RegisterComponent implements OnInit {
   }
 
   login() {
-    this.authService.login(this.model).subscribe(
-      (next) => {
-        console.log('logged successfully');
-        if (this.loggedIn) this.router.navigate(['/home']);
-      },
-      (error) => {
-        console.log('logged error.' + error.error);
-        this.register();
-      }
-    );
+    this.router.navigate(['/home']);
+    // this.authService.login(this.model).subscribe(
+    //   (next) => {
+    //     console.log('logged successfully');
+    //     if (this.loggedIn) this.router.navigate(['/home']);
+    //   },
+    //   (error) => {
+    //     console.log('logged error.' + error.error);
+    //     this.register();
+    //   }
+    // );
   }
 
   loggedIn() {
