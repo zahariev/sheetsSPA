@@ -3,15 +3,6 @@
     <h3>{{ activityName }} timesheet</h3>
     <form (ngSubmit)="onSubmit()" #newForm="ngForm" novalidate="novalidate">
       <div class="row">
-        <div
-          class="text-danger validation-summary-valid"
-          data-valmsg-summary="true"
-        >
-          <ul>
-            <li style="display: none;"></li>
-          </ul>
-        </div>
-
         <div class="col-md-4">
           <div class="form-group">
             <label class="control-label" for="ClientId">Client</label>
@@ -27,6 +18,19 @@
                 item.name
               }}</option>
             </select>
+            <div class="form-group">
+              <label class="control-label">Start Time</label>
+              <input
+                type="datetime"
+                class="form-control"
+                autocomplete="off"
+                data-val="true"
+                data-val-required="The Start Time field is required."
+                id="TimesheetEntry_StartDateTime"
+                name="TimesheetEntry.StartDateTime"
+                [(ngModel)]="model.startTime"
+              />
+            </div>
           </div>
         </div>
         <div class="col-md-4">
@@ -48,50 +52,44 @@
                 >{{ item.name }}</option
               >
             </select>
+
+            <div class="form-group">
+              <label class="control-label" for="TimesheetEntry_EndDateTime"
+                >End Time</label
+              >
+              <input
+                type="datetime"
+                class="form-control"
+                autocomplete="off"
+                data-val="true"
+                data-val-required="The End Time field is required."
+                id="TimesheetEntry_EndDateTime"
+                name="TimesheetEntry.EndDateTime"
+                value=""
+                [(ngModel)]="model.endTime"
+              />
+              <span
+                class="text-danger field-validation-valid"
+                data-valmsg-for="TimesheetEntry.EndDateTime"
+                data-valmsg-replace="true"
+              ></span>
+            </div>
           </div>
         </div>
-        <!-- <div class="col-md-4"></div> -->
-      </div>
-      <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-2">
           <div class="form-group">
-            <label class="control-label">Start Time</label>
-            <input
-              type="datetime"
-              class="form-control"
-              autocomplete="off"
-              data-val="true"
-              data-val-required="The Start Time field is required."
-              id="TimesheetEntry_StartDateTime"
-              name="TimesheetEntry.StartDateTime"
-              [(ngModel)]="model.startTime"
-            />
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label class="control-label" for="TimesheetEntry_EndDateTime"
-              >End Time</label
+            <ngb-datepicker
+              #dp
+              outsideDays="hidden"
+              [(ngModel)]="model.date"
+              name="date"
+              startDate="startDate"
             >
-            <input
-              type="datetime"
-              class="form-control"
-              autocomplete="off"
-              data-val="true"
-              data-val-required="The End Time field is required."
-              id="TimesheetEntry_EndDateTime"
-              name="TimesheetEntry.EndDateTime"
-              value=""
-              [(ngModel)]="model.endTime"
-            />
-            <span
-              class="text-danger field-validation-valid"
-              data-valmsg-for="TimesheetEntry.EndDateTime"
-              data-valmsg-replace="true"
-            ></span>
+            </ngb-datepicker>
           </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-md-8">
           <div class="form-group">
@@ -146,6 +144,9 @@
           Client / Project
         </th>
         <th>
+          Date
+        </th>
+        <th>
           Start Time
         </th>
         <th>
@@ -167,6 +168,9 @@
           {{ getProjectName(item.projectId) }}
         </td>
         <td>
+          {{ getDate(item.date) }}
+        </td>
+        <td>
           {{ item.startTime }}
         </td>
         <td>
@@ -185,6 +189,13 @@
             (click)="editSheet(item)"
           >
             <i class="fa fa-pencil-square-o"></i>
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            (click)="deleteSheet(item.id)"
+          >
+            <i class="fa fa-trash-o"></i>
           </button>
         </td>
       </tr>
