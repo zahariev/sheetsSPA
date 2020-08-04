@@ -6,4 +6,5 @@ export class TimeSheet {
   description: string = '';
   startTime: number = 0;
   endTime: number = 0;
+  date: string;
 }

@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   model: TimeSheet = new TimeSheet();
   editMode = false;
   activityName = 'Create';
+  startDate = { year: 2020, month: 8, day: 6 };
 
   constructor(
     private clientService: ClientService,
@@ -73,6 +74,10 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(typeof this.model.date);
+
+    if (typeof this.model.date == 'object')
+      this.model.date = JSON.stringify(this.model.date);
     const sheet = {
       id: parseInt(this.model.id?.toString()) || 0,
       ProjectId: parseInt(this.model.projectId?.toString()) || 0,
@@ -81,6 +86,7 @@ export class HomeComponent implements OnInit {
       StartTime: parseInt(this.model.startTime?.toString()) || 0,
       EndTime: parseInt(this.model.endTime?.toString()) || 0,
       Description: this.model.description || '',
+      date: this.model.date,
     };
 
     if (!sheet.id)
@@ -93,7 +99,7 @@ export class HomeComponent implements OnInit {
   }
 
   calcTimeDiff(item: TimeSheet) {
-    return item.endTime || 0 - item.startTime || 0;
+    return (item.endTime || 0) - (item.startTime || 0);
   }
 
   toggleActivityName() {
@@ -103,8 +109,26 @@ export class HomeComponent implements OnInit {
 
   editSheet(sheet) {
     this.model = sheet;
+    this.model.date = JSON.parse(this.model.date);
     this.onSelect(this.model.clientId);
     this.activityName = 'Update';
     this.editMode = true;
+  }
+
+  getDate(dt) {
+    if (!dt) return;
+    let date = JSON.parse(dt);
+    console.log(date.year);
+
+    return date.year + '/' + date.month + '/' + date.day;
+  }
+
+  deleteSheet(id) {
+    this.timesheetService.deleteTimesheet(id).subscribe(() => {
+      this.timesheets.splice(
+        this.timesheets.findIndex((p) => p.id === id),
+        1
+      );
+    });
   }
 }
