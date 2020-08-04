@@ -90,6 +90,10 @@ export class HomeComponent implements OnInit {
     this.editMode = false;
   }
 
+  calcTimeDiff(item: TimeSheet) {
+    return item.endTime || 0 - item.startTime || 0;
+  }
+
   editSheet(sheet) {
     this.model = sheet;
     this.onSelect(this.model.clientId);
