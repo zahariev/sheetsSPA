@@ -27,25 +27,18 @@ export class TimesheetService {
   }
 
   getTimeSheets(): Observable<TimeSheet[]> {
-    return this.http.get<TimeSheet[]>(
-      this.baseURL + 'timesheets/',
-      httpOptions
-    );
+    return this.http.get<TimeSheet[]>(this.baseURL + 'timesheets', httpOptions);
   }
 
-  updateTimeSheet(id: number, timesheet: TimeSheet) {
-    return this.http.put(
-      this.baseURL + 'timesheets/' + id,
-      timesheet,
-      httpOptions
-    );
+  updateTimeSheet(timesheet) {
+    return this.http.put(this.baseURL + 'timesheets', timesheet, httpOptions);
   }
 
   deleteTimesheet(id: number) {
     return this.http.delete(this.baseURL + 'timesheets/' + id, httpOptions);
   }
 
-  insertTimesheet() {
-    return this.http.post(this.baseURL + 'timesheets', {}, httpOptions);
+  insertTimesheet(timesheet) {
+    return this.http.post(this.baseURL + 'timesheets', timesheet, httpOptions);
   }
 }

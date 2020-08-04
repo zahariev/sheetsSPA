@@ -1,7 +1,7 @@
-<div class="container body-content">
+<div *ngIf="editMode" class="container body-content">
   <div>
     <h3>Create a new timesheet</h3>
-    <form action="/Home/Create" method="post" novalidate="novalidate">
+    <form (ngSubmit)="onSubmit()" #newForm="ngForm" novalidate="novalidate">
       <div class="row">
         <div
           class="text-danger validation-summary-valid"
@@ -17,12 +17,12 @@
             <label class="control-label" for="ClientId">Client</label>
             <select
               class="form-control"
-              data-val="true"
-              data-val-required="The Client field is required."
               id="ClientId"
               name="ClientId"
+              [(ngModel)]="model.clientId"
               (change)="onSelect($event.target.value)"
             >
+              <option [ngValue]="null">Please select value</option>
               <option *ngFor="let item of clients" value="{{ item.id }}">{{
                 item.name
               }}</option>
@@ -38,14 +38,15 @@
             >
             <select
               class="form-control"
-              data-val="true"
-              data-val-required="The Parent Project field is required."
-              id="TimesheetEntry_ParentPhase_ParentProjectId"
-              name="TimesheetEntry.ParentPhase.ParentProjectId"
+              name="ProjectId"
+              [(ngModel)]="model.projectId"
             >
-              <option *ngFor="let item of activeProjects" value="item.id">{{
-                item.name
-              }}</option>
+              <option [ngValue]="null">Please select value</option>
+              <option
+                *ngFor="let item of activeProjects"
+                value="{{ item.id }}"
+                >{{ item.name }}</option
+              >
             </select>
           </div>
         </div>
@@ -54,9 +55,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <label class="control-label" for="TimesheetEntry_StartDateTime"
-              >Start Time</label
-            >
+            <label class="control-label">Start Time</label>
             <input
               type="datetime"
               class="form-control"
@@ -65,13 +64,8 @@
               data-val-required="The Start Time field is required."
               id="TimesheetEntry_StartDateTime"
               name="TimesheetEntry.StartDateTime"
-              value=""
+              [(ngModel)]="model.startTime"
             />
-            <span
-              class="text-danger field-validation-valid"
-              data-valmsg-for="TimesheetEntry.StartDateTime"
-              data-valmsg-replace="true"
-            ></span>
           </div>
         </div>
         <div class="col-md-4">
@@ -88,6 +82,7 @@
               id="TimesheetEntry_EndDateTime"
               name="TimesheetEntry.EndDateTime"
               value=""
+              [(ngModel)]="model.endTime"
             />
             <span
               class="text-danger field-validation-valid"
@@ -111,6 +106,7 @@
               data-val-required="The Description field is required."
               id="TimesheetEntry_Description"
               name="TimesheetEntry.Description"
+              [(ngModel)]="model.description"
             ></textarea>
             <span
               class="text-danger field-validation-valid"
@@ -131,55 +127,67 @@
           </div>
         </div>
       </div>
-
-      <p class="text-danger"></p>
-      <input
-        name="__RequestVerificationToken"
-        type="hidden"
-        value="CfDJ8P0M506I3kBFsAY73VoS3ujf3lHIaifg8Ev_nYDzX5W5iOn9K2gqRF6d_3eL7kc48SuBBbNEczAnHIksllbA5qWQlryLKEr-TJpWJ2pzmrEl94KcVetM_ZG0bHXyLhkuC0kVLvWiLG8vKyNcyNYeNJIvPHOiDCd5OZiiLtcSXj-Kg9q7Z4gVxWsBAzn5fdjcgw"
-      />
     </form>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>
-            Client / Project / Phase
-          </th>
-          <th>
-            Start Time
-          </th>
-          <th>
-            End Time
-          </th>
-          <th>
-            Total Hours
-          </th>
-          <th>
-            Description
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of timesheets">
-          <td>
-            {{ getClientName(item.clientId) }} /
-            {{ getProjectName(item.projectId) }}
-          </td>
-          <td>
-            {{ item.startTime }}
-          </td>
-          <td>
-            {{ item.endTime }}
-          </td>
-          <td>
-            08:00
-          </td>
-          <td>
-            {{ item.description }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div>
+      <a href="javascript:void(0)" (click)="onSubmit()">Back to List</a>
+    </div>
   </div>
+</div>
+<div *ngIf="!editMode">
+  <h3>Timesheets</h3>
+  <p>
+    <a href="javascript:void(0)" (click)="newSheet()">Create New</a>
+  </p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>
+          Client / Project
+        </th>
+        <th>
+          Start Time
+        </th>
+        <th>
+          End Time
+        </th>
+        <th>
+          Total Hours
+        </th>
+        <th>
+          Description
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of timesheets">
+        <td>
+          {{ getClientName(item.clientId) }} /
+          {{ getProjectName(item.projectId) }}
+        </td>
+        <td>
+          {{ item.startTime }}
+        </td>
+        <td>
+          {{ item.endTime }}
+        </td>
+        <td>
+          {{ item.endTime - item.startTime }}
+        </td>
+        <td>
+          {{ item.description }}
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-success btn-sm mr-2"
+            (click)="editSheet(item)"
+          >
+            <i class="fa fa-pencil-square-o"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

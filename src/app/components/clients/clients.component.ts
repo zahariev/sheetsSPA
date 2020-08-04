@@ -31,6 +31,11 @@ export class ClientsComponent implements OnInit {
     this.model = new Client();
   }
 
+  cancelEdit() {
+    this.editMode = false;
+    this.model = new Client();
+  }
+
   editClient(client) {
     console.log(client);
     this.model = client;

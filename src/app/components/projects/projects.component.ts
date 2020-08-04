@@ -13,7 +13,7 @@ import { ClientService } from 'src/app/_services/client.service';
 export class ProjectsComponent implements OnInit {
   projects: Project[] = [];
   clients: Client[] = [];
-  edit = false;
+  editMode = false;
   model: Project = new Project();
 
   constructor(
@@ -41,17 +41,18 @@ export class ProjectsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('submit');
+    console.log(this.model);
+
     if (this.model.clientId == null) this.model.clientId = 0;
 
-    this.model.clientId == parseInt(this.model.clientId.toString());
+    this.model.clientId = parseInt(this.model.clientId.toString());
 
     this.projectService.updateProject(this.model).subscribe(
       () => {},
       (err) => {}
     );
 
-    this.edit = false;
+    this.editMode = false;
     this.model = new Project();
   }
 
@@ -62,7 +63,7 @@ export class ProjectsComponent implements OnInit {
   editProject(project) {
     this.model = project;
 
-    this.edit = true;
+    this.editMode = true;
   }
 
   deleteProject(id: number) {
@@ -74,6 +75,11 @@ export class ProjectsComponent implements OnInit {
       1
     );
     console.log('deletePressed');
+  }
+
+  cancelEdit() {
+    this.editMode = false;
+    this.model = new Project();
   }
 
   newProject() {

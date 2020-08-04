@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit {
   projects: Project[] = [];
   timesheets: TimeSheet[] = [];
   activeProjects: Project[];
+  model: TimeSheet = new TimeSheet();
+  editMode = false;
 
   constructor(
     private clientService: ClientService,
@@ -27,14 +29,14 @@ export class HomeComponent implements OnInit {
     this.clients = await this.getClients();
     this.projects = await this.getProjects();
     this.timesheets = await this.getTimeSheets();
-    this.onSelect(this.clients[0].id);
+    // this.onSelect(this.clients[0].id);
   }
 
   onSelect(clientId) {
     this.activeProjects = this.projects.filter(
       (item) => item.clientId == clientId
     );
-    console.log(this.activeProjects);
+    console.log(clientId);
   }
 
   async getClients() {
@@ -61,5 +63,39 @@ export class HomeComponent implements OnInit {
 
   getProjectName(projectId) {
     return this.projects.filter((item) => item.id == projectId)[0]?.name;
+  }
+
+  newSheet() {
+    this.editMode = true;
+  }
+
+  onSubmit() {
+    const sheet = {
+      id: parseInt(this.model.id?.toString()) || 0,
+      ProjectId: parseInt(this.model.projectId?.toString()) || 0,
+      ClientId: parseInt(this.model.clientId?.toString()) || 0,
+      UserId: 0,
+      StartTime: parseInt(this.model.startTime?.toString()) || 0,
+      EndTime: parseInt(this.model.endTime?.toString()) || 0,
+      Description: this.model.description || '',
+    };
+    if (!sheet.id)
+      this.timesheetService.insertTimesheet(sheet).subscribe(() => {
+        this.timesheets.push(Object.assign(new TimeSheet(), sheet));
+      });
+    else
+      this.timesheetService.updateTimeSheet(sheet).subscribe(
+        () => {},
+        (err) => {}
+      );
+    this.model = new TimeSheet();
+    // this.onSelect(this.model.clientId);
+    this.editMode = false;
+  }
+
+  editSheet(sheet) {
+    this.model = sheet;
+    this.onSelect(this.model.clientId);
+    this.editMode = true;
   }
 }
