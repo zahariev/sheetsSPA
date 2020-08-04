@@ -1,5 +1,5 @@
 export class TimeSheet {
-  id: number = 0;
+  id: number = -1;
   clientId: number = 0;
   projectId: number = 0;
   userId: number = 0;
