@@ -5,6 +5,7 @@ import { ClientService } from 'src/app/_services/client.service';
 import { ProjectService } from 'src/app/_services/project.service';
 import { Client } from 'src/app/models/client';
 import { Project } from 'src/app/models/project';
+import { ClassGetter } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-home',
@@ -79,17 +80,13 @@ export class HomeComponent implements OnInit {
       EndTime: parseInt(this.model.endTime?.toString()) || 0,
       Description: this.model.description || '',
     };
+
     if (!sheet.id)
-      this.timesheetService.insertTimesheet(sheet).subscribe(() => {
-        this.timesheets.push(Object.assign(new TimeSheet(), sheet));
+      this.timesheetService.insertTimesheet(sheet).subscribe(async () => {
+        this.timesheets = await this.getTimeSheets();
       });
-    else
-      this.timesheetService.updateTimeSheet(sheet).subscribe(
-        () => {},
-        (err) => {}
-      );
+    else this.timesheetService.updateTimeSheet(sheet).subscribe(() => {});
     this.model = new TimeSheet();
-    // this.onSelect(this.model.clientId);
     this.editMode = false;
   }
 
